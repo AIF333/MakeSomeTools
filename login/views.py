@@ -73,13 +73,13 @@ def resutils(request):
     queryResult=models.ResManage.objects.all()
 
     pagedict={}
-    pagedict["url"]="/resutils/"
+    pagedict["url"]=request.path_info
     pagedict["record_sum"]=queryResult.count()
     pagedict["current_page"]=request.GET.get("page")
-    pagedict["max_pages"]=15
-    pagedict["max_records"]=20
+    pagedict["max_pages"]=15     # 默认11，可不传入
+    pagedict["max_records"]=20   # 默认10，可不传入
 
-    pageination=Pageination(**pagedict)
-    res_obj=queryResult[pageination.start:pageination.end]
+    page_obj=Pageination(**pagedict)
+    res_obj=queryResult[page_obj.start:page_obj.end]
 
-    return render(request,"resmanage.html",{"res_obj":res_obj,"a_html":pageination.page()})
+    return render(request,"resmanage.html",{"res_obj":res_obj,"a_html":page_obj.page()})

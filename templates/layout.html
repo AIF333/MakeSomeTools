@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block Title %}
+        <title>Title</title>
+    {% endblock %}
+
+    <!--css样式-->
+    {% block css %}
+    {% endblock %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .layout{
+            height: 48px;
+            background-color: aqua;
+        }
+        .headtxt{
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout"><h3 class="headtxt">欢迎！</h3></div>
+
+<!--内容样式-->
+{% block content %}
+
+{% endblock %}
+
+<!--js样式-->
+{% block js %}
+{% endblock %}
+</body>
+</html>

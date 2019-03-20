@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+
+{% block Title %}
+    <title>主机管理系统</title>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .page a{
+            display: inline-block;
+            padding: 1px 5px;
+            margin: 0px 3px;
+            border: 1px solid darkgrey;
+            text-align: center;
+        }
+        .active{
+            background-color: cornflowerblue;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>主机id</th>
+            <th>主机名</th>
+            <th>主机IP</th>
+        </tr>
+    {% for res in res_obj %}
+        <tr>
+            <td>{{ res.resid }}</td>
+            <td>{{ res.resname }}</td>
+            <td>{{ res.resip }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <!--页码标签-->
+    <div class="page">{{ a_html }}</div>
+
+
+{% endblock %}

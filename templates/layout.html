@@ -21,15 +21,23 @@
         .headtxt{
             padding: 10px 15px;
         }
+        .logout{
+            padding-right: 20px;
+            float:right;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
-<div class="layout"><h3 class="headtxt">欢迎！</h3></div>
-
 <!--内容样式-->
 {% block content %}
+    <div class="layout">
+        <h3 class="headtxt">欢迎！
+            <a class="logout" href="/logout/">注销</a>
+        </h3>
 
+    </div>
 {% endblock %}
 
 <!--js样式-->

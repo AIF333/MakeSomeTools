@@ -19,6 +19,9 @@ from login import  views as log_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('resmanage/', log_views.resmanage), # 主机管理
-    path('resutils/', log_views.resutils), # 主机管理,用页标工具
+    path('login/', log_views.login),     # 登录页面
+    path('logout/', log_views.logout),     # 注销页面
+    path('', log_views.index),       #首页
+    path('index/', log_views.index), #首页
+    path('host/', log_views.host), # 主机管理
 ]

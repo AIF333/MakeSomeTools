@@ -10,4 +10,17 @@ from django.test import TestCase
 #     dic={"resname":resname,"resip":resip}
 #     models.ResManage.objects.create(**dic)
 
-print(divmod(91,10))
+# print(divmod(91,10))
+
+
+import hashlib
+def md5(txt,salt="AIF333"): # 撒盐 默认 salt="AIF333"
+    txt=txt+salt
+    m=hashlib.md5()
+    m.update(txt.encode("utf-8"))
+    return m.hexdigest()
+
+
+a="yeteng123"
+
+print(md5(a))

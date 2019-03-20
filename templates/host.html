@@ -21,6 +21,12 @@
 {% endblock %}
 
 {% block content %}
+    <div class="layout">
+        <h3 class="headtxt">欢迎！
+            <a class="logout" href="/logout/">注销</a>
+        </h3>
+    </div>
+
     <table>
         <tr>
             <th>主机id</th>
@@ -37,7 +43,7 @@
     </table>
 
     <!--页码标签-->
-    <div class="page">{{ a_html }}</div>
+    <div class="page">{{ html }}</div>
 
 
 {% endblock %}

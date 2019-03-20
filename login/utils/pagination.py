@@ -9,22 +9,24 @@
 
 eg:
 视图函数：
-def resutils(request):
+def host(request):
     from login.utils.pagination import Pageination
 
     queryResult=models.ResManage.objects.all()
 
     pagedict={}
-    pagedict["url"]=request.path_info  # request.path_info 可获取当前url的路径，如/resutils/?page=1的path_url=/resutils/
+    # request.path_info 可获取当前url的路径，如/host/?page=1的path_url=/host/
+    pagedict["url"]=request.path_info
     pagedict["record_sum"]=queryResult.count()
     pagedict["current_page"]=request.GET.get("page")
-    pagedict["max_pages"]=15     # 默认11，可不传入
-    pagedict["max_records"]=20   # 默认10，可不传入
+    pagedict["max_pages"]=11     # 默认11，可不传入
+    pagedict["max_records"]=10   # 默认10，可不传入
 
     page_obj=Pageination(**pagedict)
     res_obj=queryResult[page_obj.start:page_obj.end]
 
-    return render(request,"resmanage.html",{"res_obj":res_obj,"a_html":page_obj.page()})
+    return render(request,"resmanage.html",{"res_obj":res_obj,"html":page_obj.page()})
+
 html:
     <!--页码标签-->
     <style>
@@ -40,7 +42,7 @@ html:
         }
     </style>
 
-    <div class="page">{{ a_html }}</div>
+    <div class="page">{{ html }}</div>
 '''
 
 

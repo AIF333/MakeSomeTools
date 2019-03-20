@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'login.utils.middlewareIslogin.Midislogin', # 新加的中间件，过滤用户是否登录
 ]
 
 ROOT_URLCONF = 'MakeSomeTools.urls'

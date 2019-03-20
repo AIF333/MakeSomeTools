@@ -24,4 +24,5 @@ urlpatterns = [
     path('', log_views.index),       #首页
     path('index/', log_views.index), #首页
     path('host/', log_views.host), # 主机管理
+    path('test/', log_views.test), # 主机管理
 ]

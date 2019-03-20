@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms.models import ModelForm
 from django.test import TestCase
 
 # 生成主机表的测试数据
@@ -24,3 +25,4 @@ def md5(txt,salt="AIF333"): # 撒盐 默认 salt="AIF333"
 a="yeteng123"
 
 print(md5(a))
+

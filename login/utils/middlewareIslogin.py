@@ -7,14 +7,15 @@ from django.shortcuts import redirect
 from django.utils.deprecation import MiddlewareMixin
 
 from MakeSomeTools.settings import USER_SESSION_KEY
+from django.conf import settings
 
 
 class Midislogin(MiddlewareMixin):
     def process_request(self, request):
-        if request.path_info  == "/login/":
+        if request.path_info  == "/login/" or request.path_info  == "/test/":
             return None
         else:
-            if not request.session.get(USER_SESSION_KEY):
+            if not request.session.get(settings.USER_SESSION_KEY):
                 return redirect("/login/")
             else:
                 return None

@@ -1,18 +1,24 @@
+import datetime
+import json
+
+from django.core import serializers
 from django.shortcuts import render,HttpResponse,redirect
 
 # Create your views here.
 from django.utils.safestring import mark_safe
 
-from MakeSomeTools.settings import USER_SESSION_KEY
+# from MakeSomeTools import  settings # 只会导入看到的
+from django.conf import settings # 会导入所有的配置
 from login import models
 
 # 注册页面
+from login.utils.jsonCustom import JsonCustomEncoder
 from login.utils.md5 import md5
 
 # 定义一个校验是否登录的装饰器
 def is_login(func):
     def inner(request,*args,**kwargs):
-        if not request.session.get(USER_SESSION_KEY):
+        if not request.session.get(settings.USER_SESSION_KEY):
             return redirect("/login/")
         res=func(request,*args,**kwargs)
         return res
@@ -28,7 +34,7 @@ def login(request):
 
         user=models.User.objects.filter(username=username,password=password)
         if user: # 这里只为测试功能
-            request.session[USER_SESSION_KEY]=username
+            request.session[settings.USER_SESSION_KEY]=username
             return redirect("/index/")
         else:
             return redirect("/login/")
@@ -38,14 +44,14 @@ def login(request):
 
 # 注销页面
 def logout(request):
-    if request.session.get(USER_SESSION_KEY):
-        del request.session[USER_SESSION_KEY]
+    if request.session.get(settings.USER_SESSION_KEY):
+        del request.session[settings.USER_SESSION_KEY]
     return redirect("/login/")
 
 
 # 模拟的主页
 def index(request):
-    username=request.session.get(USER_SESSION_KEY,"")
+    username=request.session.get(settings.USER_SESSION_KEY,"")
     print("username=",username,"----",type(username))
     return  render(request,"index.html",{"username":username})
 
@@ -68,3 +74,24 @@ def host(request):
     res_obj=queryResult[page_obj.start:page_obj.end]
 
     return render(request,"host.html",{"res_obj":res_obj,"html":page_obj.page()})
+
+# 测试页面
+def test(request):
+    host_list=models.ResManage.objects.filter(resid__lt=3)
+    host_list_values=models.ResManage.objects.filter(resid__lt=3).values()
+    print("---host_list:",host_list,"---type(host_list):",type(host_list))
+    print("---host_list_values:",host_list_values,"---type(host_list_values):",type(host_list_values))
+
+    # 具体的记录 可以直接将 queryset 使用list方法后序列化
+    print('---json.dumps(list(host_list)):',json.dumps(list(host_list_values)))
+
+    # 对象则需使用django的模块
+    host_ser=serializers.serialize("json",host_list)
+    print('---host_ser:',type(host_ser),host_ser)
+
+    from login.utils.jsonCustom import JsonCustomEncoder
+
+    dic={"k1":"v1","datetime": datetime.datetime.now()}
+    print(json.dumps(dic,cls=JsonCustomEncoder))
+
+    return render(request,"test.html")

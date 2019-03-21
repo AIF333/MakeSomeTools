@@ -12,7 +12,8 @@ from django.conf import settings
 
 class Midislogin(MiddlewareMixin):
     def process_request(self, request):
-        if request.path_info  == "/login/" or request.path_info  == "/test/":
+        if request.path_info  == "/login/" or request.path_info  == "/test/"\
+                or str(request.path_info).startswith("/rbac/"):
             return None
         else:
             if not request.session.get(settings.USER_SESSION_KEY):

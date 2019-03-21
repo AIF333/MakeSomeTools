@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login.apps.LoginConfig',
+    'rbac',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,4 @@ STATIC_URL = '/static/'
 
 # 自定义的模块
 USER_SESSION_KEY="user_session_key"
+USER_PERMISSION_KEY="user_permission_key"

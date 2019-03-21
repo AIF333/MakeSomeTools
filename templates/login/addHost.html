@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'login/layout.html' %}
 
 
 {% block Title %}
@@ -27,14 +27,14 @@
         </h3>
     </div>
 
-    <div><h2>编辑主机</h2></div>
+    <div><h2>增加主机</h2></div>
 
-    <form class="editHost" method="post">
+    <form class="addHost" method="post">
         {% csrf_token %}
         {%  for res in resForm %}
             <div>{{ res.label }}{{ res }}{{ res.errors.0 }}</div>
         {% endfor %}
-        <input type="submit" value="修改">
+        <input type="submit" value="增加">
     </form>
 
 {% endblock %}

@@ -44,7 +44,7 @@ def login(request):
         # 使用form组件
     if request.method=="GET":
         regform = regForm()
-        return render(request, "login.html",{"regform":regform})
+        return render(request, "login/login.html", {"regform":regform})
     else:
         regform=regForm(request.POST)
 
@@ -57,7 +57,7 @@ def login(request):
                 return redirect("/index/")
             else:
                 regform.add_error("password", "用户名或密码错误")
-                return render(request, "login.html", {"regform": regform})
+                return render(request, "login/login.html", {"regform": regform})
         else:
             print("校验不通过")
             return HttpResponse("校验不通过")
@@ -75,7 +75,7 @@ def logout(request):
 def index(request):
     username=request.session.get(settings.USER_SESSION_KEY,"")
     print("username=",username,"----",type(username))
-    return  render(request,"index.html",{"username":username})
+    return  render(request, "login/index.html", {"username":username})
 
 
 # 模拟的主机管理页面，测试分页功能
@@ -97,7 +97,7 @@ def host(request):
         print("---",page_obj)
         res_obj=queryResult[page_obj.start:page_obj.end]
 
-        return render(request,"host.html",{"res_obj":res_obj,"html":page_obj.page()})
+        return render(request, "login/host.html", {"res_obj":res_obj, "html":page_obj.page()})
     else:
         pass
 
@@ -105,7 +105,7 @@ def host(request):
 def addHost(request):
     if request.method=="GET":
         resForm=ResModelForm()
-        return render(request,"addHost.html",{"resForm":resForm})
+        return render(request, "login/addHost.html", {"resForm":resForm})
     else:
         resForm = ResModelForm(request.POST)
         if resForm.is_valid():
@@ -124,14 +124,14 @@ def editHost(request,resid):
     if request.method=="GET":
         resForm=ResModelForm(instance=resobj) # 编辑时用 instance
         print("---",resForm)
-        return render(request,"editHost.html",{"resForm":resForm})
+        return render(request, "login/editHost.html", {"resForm":resForm})
     else:
         resForm=ResModelForm(data=request.POST,instance=resobj)
         if resForm.is_valid():
             resForm.save()
             return redirect("/host/")
         else:
-            return render(request, "editHost.html", {"resForm": resForm})
+            return render(request, "login/editHost.html", {"resForm": resForm})
 
 # 删除主机
 def delHost(request,resid):
@@ -142,7 +142,7 @@ def delHost(request,resid):
 
     if request.method=="GET":
         resForm=ResModelForm(instance=resobj)
-        return render(request,"delHost.html",{"resForm":resForm})
+        return render(request, "login/delHost.html", {"resForm":resForm})
     else:
         resdel=res.delete()  # 删除时会manytomany关联也删除
         print("--resdel-",resdel)
@@ -167,4 +167,4 @@ def test(request):
     dic={"k1":"v1","datetime": datetime.datetime.now()}
     print(json.dumps(dic,cls=JsonCustomEncoder))
 
-    return render(request,"test.html")
+    return render(request, "login/test.html")

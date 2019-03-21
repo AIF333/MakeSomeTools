@@ -6,7 +6,7 @@ from django.db import models
 class User(models.Model):
     nid=models.AutoField(primary_key=True)
     username=models.CharField(max_length=32,unique=True)
-    password=models.CharField(max_length=32)
+    password=models.CharField(max_length=64) # 密码因为要加密设置大点
 
     def __str__(self):
         return self.username

@@ -25,5 +25,3 @@ def md5(txt,salt="AIF333"): # 撒盐 默认 salt="AIF333"
 a="yeteng123"
 
 print(md5(a))
-
-print(md5.__all__)

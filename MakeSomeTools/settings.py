@@ -49,7 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'login.utils.middlewareIslogin.Midislogin', # 新加的中间件，过滤用户是否登录
+    # 'login.utils.middlewareIslogin.Midislogin', # 新加的中间件，过滤用户是否登录
+    'rbac.utils.middleware.MidPermission.PermissionMiddleware', # 新加的中间件，控制用户的权限访问
 ]
 
 ROOT_URLCONF = 'MakeSomeTools.urls'
@@ -126,3 +127,9 @@ STATIC_URL = '/static/'
 # 自定义的模块
 USER_SESSION_KEY="user_session_key"
 USER_PERMISSION_KEY="user_permission_key"
+
+REG_FORMAT="^%s$"  # 匹配用户有的 url的格式，需要严格匹配
+
+VALID_URL_LIST=[
+    '.*/login/.*',
+]

@@ -2,13 +2,33 @@
 
 
 {% block Title %}
-    <title>系统首页</title>
+    <title>首页</title>
 {% endblock %}
+
+{% block css %}
+    <style>
+        .loginform{
+            padding: 50px 100px;
+        }
+        .loginform div{
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
 
 {% block content %}
     <div class="layout">
-        <h3 class="headtxt">欢迎登录工具系统首页 {{ username }}
-            <a class="logout" href="/logout/">注销</a>
+        <h3 class="headtxt">欢迎登录首页
+            <a class="logout" href="/rbac/login">注销</a>
         </h3>
     </div>
+
+        <br><br>
+    <div><h4><a href="/rbac/users/">用户组系统</a></h4></div>
+        <br>
+    <div><h4><a href="/rbac/host/">主机组系统</a></h4></div>
+
+
+
 {% endblock %}

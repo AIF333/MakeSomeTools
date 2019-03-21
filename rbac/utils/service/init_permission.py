@@ -35,6 +35,6 @@ def initPermission(request,user):
 
     # 写入session
     request.session[settings.USER_PERMISSION_KEY]=promission_dict
-    print(promission_dict)
-    print("-----------------")
-    print(request.session.get(settings.USER_PERMISSION_KEY),"-------")
+    # print(promission_dict)
+    # print("-----------------")
+    # print(request.session.get(settings.USER_PERMISSION_KEY),"-------")

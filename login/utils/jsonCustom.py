@@ -4,7 +4,7 @@
  使用参考：
      from login.utils.jsonCustom import JsonCustomEncoder
     import datetime
-    
+
      dic={"k1":"v1","datetime": datetime.datetime.now()}
     print(json.dumps(dic,cls=JsonCustomEncoder))
 '''

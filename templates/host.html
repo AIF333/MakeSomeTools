@@ -9,8 +9,8 @@
     <style>
         .page a{
             display: inline-block;
-            padding: 1px 5px;
-            margin: 0px 3px;
+            padding: 2px 2px;
+            margin: 50px 3px;
             border: 1px solid darkgrey;
             text-align: center;
         }
@@ -27,17 +27,24 @@
         </h3>
     </div>
 
+    <div><a href="/addHost/">添加</a></div>
     <table border="1px">
         <tr>
             <th>主机id</th>
             <th>主机名</th>
             <th>主机IP</th>
+            <th>用户</th>
+            <th>编辑操作</th>
+            <th>删除操作</th>
         </tr>
     {% for res in res_obj %}
         <tr>
             <td>{{ res.resid }}</td>
             <td>{{ res.resname }}</td>
             <td>{{ res.resip }}</td>
+            <td>{{ res.user_id }}</td>
+            <td><a href="/editHost/{{ res.resid }}">编辑</a></td>
+            <td><a href="/delHost/{{ res.resid }}">删除</a></td>
         </tr>
     {% endfor %}
     </table>

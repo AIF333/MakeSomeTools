@@ -8,8 +8,24 @@ class User(models.Model):
     username=models.CharField(max_length=32,unique=True)
     password=models.CharField(max_length=32)
 
+    def __str__(self):
+        return self.username
+
 # 主机管理表
 class ResManage(models.Model):
     resid=models.AutoField(primary_key=True)
     resname=models.CharField(max_length=32)
-    resip=models.CharField(max_length=32)
+    resip=models.GenericIPAddressField(protocol="ipv4") # 这种字段只有在modelForm插件才有用
+    user=models.ForeignKey(to="User",on_delete=models.CASCADE,default=1)
+    dp=models.ManyToManyField(to="Department")
+
+    def __str__(self):
+        return self.resname
+
+# 部门表
+class Department(models.Model):
+    deptid=models.AutoField(primary_key=True)
+    deptname=models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.deptname

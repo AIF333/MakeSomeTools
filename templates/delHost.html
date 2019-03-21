@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+
+{% block Title %}
+    <title>主机管理系统</title>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .page a{
+            display: inline-block;
+            padding: 2px 2px;
+            margin: 50px 3px;
+            border: 1px solid darkgrey;
+            text-align: center;
+        }
+        .active{
+            background-color: cornflowerblue;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="layout">
+        <h3 class="headtxt">欢迎！
+            <a class="logout" href="/logout/">注销</a>
+        </h3>
+    </div>
+
+    <div><h2>删除主机</h2></div>
+
+    <form class="delHost" method="post">
+        {% csrf_token %}
+        {%  for res in resForm %}
+            <div>{{ res.label }}{{ res }}{{ res.errors.0 }}</div>
+        {% endfor %}
+        <input type="submit" value="删除">
+    </form>
+
+{% endblock %}

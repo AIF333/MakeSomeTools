@@ -32,4 +32,19 @@
         <div>密码:<input type="password" name="password"></div>
         <div><input type="submit" ></div>
     </form>
+
+    <br><h2>下面的用form组件实现</h2><hr>
+
+    <form class="loginform" method="post" novalidate>
+        {% csrf_token %}
+        {% for regf in regform %}
+            <div>{{ regf.label }}{{ regf }} {{ regf.errors.0 }}</div>
+        {% endfor %}
+        <input type="submit" value="提交">
+    </form>
+
+
+
+
+
 {% endblock %}

@@ -34,12 +34,19 @@ def users(request):
         user_list=models.UserInfo.objects.all()
 
         # print(request,type(request))
-        print(request.permission_code_list) # 用户的权限code
+        # request.permission_code_list= ['list', 'add', 'del', 'edit', 'list']
+        # print(request.permission_code_list) # 用户的权限code
         # return HttpResponse("1111")
         return render(request,"rbac/users.html",{"user_list":user_list,"permission_code_list":request.permission_code_list})
     else:
         pass
 
+# 编辑页面
+def users_edit(request,userid):
+    return HttpResponse("编辑%s" % userid)
+
+def users_del(request,userid):
+    return HttpResponse("删除%s" % userid)
 
 
 

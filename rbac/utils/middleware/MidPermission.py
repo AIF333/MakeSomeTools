@@ -30,6 +30,9 @@ class PermissionMiddleware(MiddlewareMixin):
                 code_list=permission["code"]
                 for rex in url_list:
                     reg=settings.REG_FORMAT %(rex,)  # 这里需要严格匹配
+                    print("---re.match(",reg,current_path)
+                    print("---",re.match(reg,current_path))
+
                     if re.match(reg,current_path): # 利用正则匹配当前路径和权限表中的正则url路径
                         # 用户有权限  把权限的code传给request
                         flag=True

@@ -20,7 +20,10 @@ def initPermission(request,user):
         2:{'url':['/host/','/host/add/'],'code':['list','add',]}     }
     '''
 
-    promission_list = user.roles.values("permissions__url", "permissions__code", "permissions__group").distinct()
+
+    # 过滤掉取消为空的记录，排除某些特殊的角色没有权限对应，为None值的情况
+    promission_list = user.roles.filter(permissions__id__isnull=False).\
+        values("permissions__url", "permissions__code", "permissions__group").distinct()
     promission_dict = {}
 
     for promission in promission_list:

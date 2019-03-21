@@ -42,10 +42,10 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 {% if 'edit' in permission_code_list %}
-                    <td><a href="/users/edit/{{ user.id }}">编辑</a></td>
+                    <td><a href="/rbac/users/edit/{{ user.id }}">编辑</a></td>
                 {% endif %}
                 {% if 'del' in permission_code_list %}
-                    <td><a href="/users/del/{{ user.id }}">删除</a></td>
+                    <td><a href="/rbac/users/del/{{ user.id }}">删除</a></td>
                 {% endif %}
             </tr>
         {% endfor %}

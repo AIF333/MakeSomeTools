@@ -23,12 +23,9 @@
             <a class="logout" href="/rbac/login">注销</a>
         </h3>
     </div>
+{% endblock %}
 
-        <br><br>
-    <div><h4><a href="/rbac/users/">用户组系统</a></h4></div>
-        <br>
-    <div><h4><a href="/rbac/host/">主机组系统</a></h4></div>
-
-
-
+{% block pg_menu %}
+    <h4><a href="/rbac/users/">用户区</a></h4>
+    <h4><a href="/rbac/host">主机区</a></h4>
 {% endblock %}

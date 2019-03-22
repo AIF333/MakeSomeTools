@@ -9,7 +9,7 @@ from rbac.utils.service.init_permission import initPermission
 # 登录页面
 def login(request):
     if request.method=="GET":
-        return render(request,"rbac/login.html")
+        return render(request, "rbac/login.html")
     else:
         username=request.POST.get("username")
         password=request.POST.get("password")
@@ -23,7 +23,7 @@ def login(request):
 
         else:
             # 登录失败  不做过多处理，只为测试权限系统
-            return render(request,"rbac/login.html")
+            return render(request, "rbac/login.html")
 
 def index(request):
     return render(request,"rbac/index.html")
@@ -37,7 +37,9 @@ def users(request):
         # request.permission_code_list= ['list', 'add', 'del', 'edit', 'list']
         # print(request.permission_code_list) # 用户的权限code
         # return HttpResponse("1111")
-        return render(request,"rbac/users.html",{"user_list":user_list,"permission_code_list":request.permission_code_list})
+        return render(request,"rbac/users.html",
+                      {"user_list":user_list,"permission_code_list":request.permission_code_list,
+                       "menu_dict":request.menu_dict})
     else:
         pass
 
@@ -48,5 +50,40 @@ def users_edit(request,userid):
 def users_del(request,userid):
     return HttpResponse("删除%s" % userid)
 
+def users_add(request):
+    return HttpResponse("增加")
+# 主机组
+def host(request):
+    from login import  models as l_models
+    if request.method=="GET":
+        from login.utils.pagination import Pageination
 
+        queryResult=l_models.ResManage.objects.order_by("-resid").all()
 
+        pagedict={}
+        # request.path_info 可获取当前url的路径，如/host/?page=1的path_url=/host/
+        pagedict["url"]=request.path_info
+        pagedict["record_sum"]=queryResult.count()
+        pagedict["current_page"]=request.GET.get("page")
+        pagedict["max_pages"]=11     # 默认11，可不传入
+        pagedict["max_records"]=10   # 默认10，可不传入
+
+        page_obj=Pageination(**pagedict)
+        print("---",page_obj)
+        res_obj=queryResult[page_obj.start:page_obj.end]
+
+        return render(request, "rbac/host.html", {"res_obj":res_obj, "html":page_obj.page(),
+                "permission_code_list": request.permission_code_list,"menu_dict": request.menu_dict
+                                                   })
+    else:
+        pass
+
+# 编辑页面
+def host_edit(request,userid):
+    return HttpResponse("编辑%s" % userid)
+
+def host_del(request,userid):
+    return HttpResponse("删除%s" % userid)
+
+def host_add(request):
+    return HttpResponse("增加")

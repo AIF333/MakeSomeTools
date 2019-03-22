@@ -23,8 +23,9 @@
             <a class="logout" href="/logout/">注销</a>
         </h3>
     </div>
+{% endblock %}
 
-
+{% block pg_content %}
     <!--action="/login/"  这个可以不写，默认往当前的页面提交-->
     <form class="loginform"  method="post">
             {% csrf_token %}
@@ -35,6 +36,7 @@
 
     <br><h2>下面的用form组件实现</h2><hr>
 
+
     <form class="loginform" method="post" novalidate>
         {% csrf_token %}
         {% for regf in regform %}
@@ -42,9 +44,9 @@
         {% endfor %}
         <input type="submit" value="提交">
     </form>
-
-
-
-
-
 {% endblock %}
+
+
+
+
+

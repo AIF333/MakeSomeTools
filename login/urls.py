@@ -8,7 +8,7 @@ urlpatterns = [
     path('', log_views.index),  # 首页
     path('index/', log_views.index),  # 首页
     path('host/', log_views.host),  # 主机管理
-    path('test/', log_views.test),  # 主机管理
+    path('test/', log_views.test),  # 测试
     path('addHost/', log_views.addHost),  # 主机添加
     path('editHost/<int:resid>', log_views.editHost),  # 主机编辑
     path('delHost/<int:resid>', log_views.delHost),  # 主机删除

@@ -12,7 +12,6 @@
     <style>
         *{
             margin: 0;
-            padding: 0;
         }
         .layout{
             height: 48px;
@@ -26,19 +25,64 @@
             float:right;
             font-size: 14px;
         }
+
+        .page .pg_menu{
+            width: 150px;
+            background-color: burlywood;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            top: 48px;
+            overflow: auto;
+        }
+
+        .page .pg_content{
+            background-color: cornflowerblue;
+            position: absolute;
+            left: 150px;
+            top: 48px;
+            bottom: 0px;
+            right: 0px;
+            overflow: auto;
+
+        }
+
     </style>
 </head>
 <body>
 
 <!--内容样式-->
-{% block content %}
+
+    <!--页面头部-->
     <div class="layout">
+        {% block content %}
         <h3 class="headtxt">欢迎！
-            <a class="logout" href="/logout/">注销</a>
+            <a class="logout" href="/rbac/login/">注销</a>
         </h3>
+        {% endblock %}
+    </div>
+
+
+
+    <div class="page">
+        <!--菜单栏-->
+        <div class="pg_menu">
+             {% block pg_menu %}
+                    菜单1
+             {% endblock %}
+        </div>
+
+        <!--内容区-->
+        <div class="pg_content">
+            {% block pg_content %}
+                <div>内容区</div>
+            {% endblock %}
+        </div>
 
     </div>
-{% endblock %}
+
+
+
 
 <!--js样式-->
 {% block js %}

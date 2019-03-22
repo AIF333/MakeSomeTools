@@ -7,7 +7,7 @@
 
 {% block css %}
     <style>
-        .page a{
+        .page > a{
             display: inline-block;
             padding: 2px 2px;
             margin: 50px 3px;
@@ -26,7 +26,9 @@
             <a class="logout" href="/logout/">注销</a>
         </h3>
     </div>
+{% endblock %}
 
+{% block pg_content %}
     <div><a href="/addHost/">添加</a></div>
     <table border="1px">
         <tr>

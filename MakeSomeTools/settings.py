@@ -124,12 +124,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# 自定义的模块
-USER_SESSION_KEY="user_session_key"
-USER_PERMISSION_KEY="user_permission_key"
+USER_SESSION_KEY="user_session_key"  # 用户登录的验证session
 
+# 权限控制系统的设置
+USER_PERMISSION_KEY="user_permission_dict_key" # 用户权限字典session
+USER_MENU_DICT_KEY="user_menu_dict_key" # 用户菜单字典session
 REG_FORMAT="^%s$"  # 匹配用户有的 url的格式，需要严格匹配
 
+# 权限白名单 包括登录，注销，首页 以及非 /rbac/开头的网页
 VALID_URL_LIST=[
     '.*/login/.*',
+    '.*/logout/.*',
+    '^/$',
+    '^(?!/rbac/)',
 ]

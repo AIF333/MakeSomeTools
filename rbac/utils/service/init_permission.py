@@ -1,14 +1,14 @@
 import re
 
 from django.conf import settings
-
-
 def initPermission(request,user):
     '''
-        用户登录成功后，权限相关信息的初始化
+        用户登录成功后，权限菜单相关信息的初始化
     :param request: 请求对象
     :param user:登录的用户
-    :return: 无返回值，会在session中添加权限的字典
+    :return: 无返回值，会在session中添加权限和菜单的字典：
+        request.session[settings.USER_PERMISSION_KEY] = promission_dict
+        request.session[settings.USER_MENU_DICT_KEY] = menu_dict
     '''
 
     '''
@@ -37,7 +37,11 @@ def initPermission(request,user):
         "permissions__title", # 权限名称
 
          ).distinct()
-    # 菜单的初始化
+
+
+    #################################################################################
+    ##############               菜单的初始化                          ##############
+    #################################################################################
     '''
     {'permissions__url': '/rbac/users/', 'permissions__code': 'list', 'permissions__group': 1,
       'permissions__group__caption': '用户权限组', 'permissions__group__menu__menuname': '用户一级菜单',
@@ -111,8 +115,9 @@ def initPermission(request,user):
 
 
 
-
-    # 权限的表初始化
+    #################################################################################
+    ############                权限的表初始化                          ##############
+    #################################################################################
     promission_dict = {}
     for promission in promission_list:
         group = promission['permissions__group_id']
@@ -126,6 +131,7 @@ def initPermission(request,user):
 
     # 写入session
     request.session[settings.USER_PERMISSION_KEY]=promission_dict
+
     # print(promission_dict)
     # print("-----------------")
     # print(request.session.get(settings.USER_PERMISSION_KEY),"-------")

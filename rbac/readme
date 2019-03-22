@@ -1,0 +1,92 @@
+'''
+rbac 基于角色的权限系统使用说明,通过rbac模型和中间件，session来实现角色的权限控制
+
+使用方法：
+1.拷贝rbac模块到需要使用的项目
+
+2.删除rbac/migrations/ 目录下的文件（__init__文件除外）
+  删除/rbac/templates/ 目录下的文件 (__init__,rbac_menu.html 两个文件除外)
+
+3.settings里添加四处：
+
+    USER_PERMISSION_KEY="user_permission_dict_key" # 用户权限字典session
+    USER_MENU_DICT_KEY="user_menu_dict_key" # 用户菜单字典session
+    REG_FORMAT="^%s$"  # 匹配用户有的 url的格式，需要严格匹配
+
+    # 权限白名单，这个可以自己配置，以免无权访问，可剔除登录，注销，配置文件页面
+    VALID_URL_LIST=[
+        '.*/login/.*',  # 带有login的页面
+        '.*/logout/.*', # 带有logout的页面
+        '^/$',          # / 页面，一般为网站首页
+        '^(?!/rbac/)', # 非'/rbac/'开头的页面
+        '.*(css|js)$', # 以css，js结尾的页面。（link文件）
+    ]
+
+  settings里修改三处：
+            INSTALLED_APPS = [
+            'django.contrib.admin',
+            ...
+            'rbac', # 将rbac app注册
+        ]
+
+      MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+         ...
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'rbac.utils.middleware.MidPermission.PermissionMiddleware', # 新加的中间件，控制用户的权限访问
+        ]
+
+    TEMPLATES = [
+        { ...
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    ...
+                    'rbac.templatetags.rbac.get_rbac_menu', # 注册一个用于 inclusion_tag的模板
+                ],
+            ...
+
+4.migrate 表结构 在 /rbac/models.py中有表说明
+
+5.视图函数改造示例：默认不需要改造
+
+6.模板html示例：
+    <!--继承模板-->
+    {% extends 'rbac/layout.html' %}
+
+    <!--引入css-->
+    {% block css %}
+        <link rel="stylesheet" href="/rbac/static/rbacCss/rbac.css" >
+    {% endblock %}
+    ...
+
+    <!--左侧菜单-->
+    {% block pg_menu %}
+        {% load rbac %}
+        {% get_rbac_menu request %}
+    {% endblock %}
+
+    <!--正文内容-->
+    {% block pg_content %}
+        <table border="1px">
+                <tr>
+                    <th>用户名称</th>
+                    {% if 'edit' in request.permission_code_list %}
+                        <th>编辑</th>
+                    {% endif %}
+                </tr>
+            {% for user in user_list %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    {% if 'edit' in request.permission_code_list %}
+                        <td><a href="/rbac/users/edit/{{ user.id }}">编辑</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endblock %}
+
+
+
+
+'''

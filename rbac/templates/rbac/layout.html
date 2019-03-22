@@ -6,9 +6,15 @@
         <title>Title</title>
     {% endblock %}
 
+    <!--引入css样式-->
+    {% block linkcss %}
+        <link rel="stylesheet" href="/static/rbacCss/rbac.css" >
+    {% endblock %}
+
     <!--css样式-->
     {% block css %}
     {% endblock %}
+
     <style>
         *{
             margin: 0;
@@ -46,7 +52,6 @@
             overflow: auto;
 
         }
-
     </style>
 </head>
 <body>
@@ -57,7 +62,7 @@
     <div class="layout">
         {% block content %}
         <h3 class="headtxt">欢迎！
-            <a class="logout" href="/rbac/login/">注销</a>
+            <a class="logout" href="/rbac/logout/">注销</a>
         </h3>
         {% endblock %}
     </div>

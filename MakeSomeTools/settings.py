@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'login.utils.middlewareIslogin.Midislogin', # 新加的中间件，过滤用户是否登录
+     # 'login.utils.middlewareIslogin.Midislogin', # 新加的中间件，过滤用户是否登录
     'rbac.utils.middleware.MidPermission.PermissionMiddleware', # 新加的中间件，控制用户的权限访问
 ]
 
@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'rbac.templatetags.rbac.get_rbac_menu', # 注册一个用于 inclusion_tag的模板
             ],
         },
     },
@@ -137,4 +138,5 @@ VALID_URL_LIST=[
     '.*/logout/.*',
     '^/$',
     '^(?!/rbac/)',
+    '.*(css|js)$',
 ]

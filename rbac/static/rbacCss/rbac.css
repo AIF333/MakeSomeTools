@@ -1,0 +1,22 @@
+/* 一级菜单样式 */
+.FirstMenu{
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* 二级菜单样式 */
+.afmenu{
+    display: block;
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+/* 一级活动菜单样式 */
+.FirstActive{
+    color: yellow;
+}
+
+/* 二级活动菜单样式 */
+.afactive{
+    color: yellow;
+}

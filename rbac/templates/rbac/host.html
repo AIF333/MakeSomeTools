@@ -14,33 +14,14 @@
             border: 1px solid darkgrey;
             text-align: center;
         }
-        .active{
-            background-color: cornflowerblue;
-        }
 
-        .FirstMenu{
-        margin-top: 10px;
-        font-size: 18px;
-    }
-    .afmenu{
-        display: block;
-        padding-left: 20px;
-        font-size: 14px;
-    }
-
-    .FirstActive{
-        color: yellow;
-    }
-    .afactive{
-        color: yellow;
-    }
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="layout">
         <h3 class="headtxt">欢迎！
-            <a class="logout" href="/rbac/login/">注销</a>
+            <a class="logout" href="/rbac/logout/">注销</a>
         </h3>
     </div>
 {% endblock %}
@@ -48,25 +29,28 @@
 
 <!--左侧菜单-->
 {% block pg_menu %}
-    {% for item in menu_dict.values %}
-        <!-- 如果有active则单独加样式FirstActive，可自定义颜色，字体 css格式 -->
-        {% if item.active %}
-            <div class="FirstMenu FirstActive" >{{ item.menu_name }}</div>
-        {% else %}
-            <div class="FirstMenu" >{{ item.menu_name }}</div>
-        {% endif %}
-
-        <!-- pid为空则是可以菜单显示的，如果有active则单独变换css样式 -->
-        {% for url_item in item.children.values %}
-            {% if not url_item.pid %} <!--如果是菜单则展示-->
-                {% if url_item.active %}
-                    <a class="afmenu afactive" href="{{ url_item.url }}">{{ url_item.title }}</a>
-                {% else %}
-                    <a class="afmenu" href="{{ url_item.url }}">{{ url_item.title }}</a>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    {% endfor%}
+    <!--用 inclusion_tag写的html菜单模板-->
+    {% load rbac %}
+    {% get_rbac_menu request %}
+{#    {% for item in request.menu_dict.values %}#}
+{#        <!-- 如果有active则单独加样式FirstActive，可自定义颜色，字体 css格式 -->#}
+{#        {% if item.active %}#}
+{#            <div class="FirstMenu FirstActive" >{{ item.menu_name }}</div>#}
+{#        {% else %}#}
+{#            <div class="FirstMenu" >{{ item.menu_name }}</div>#}
+{#        {% endif %}#}
+{##}
+{#        <!-- pid为空则是可以菜单显示的，如果有active则单独变换css样式 -->#}
+{#        {% for url_item in item.children.values %}#}
+{#            {% if not url_item.pid %} <!--如果是菜单则展示-->#}
+{#                {% if url_item.active %}#}
+{#                    <a class="afmenu afactive" href="{{ url_item.url }}">{{ url_item.title }}</a>#}
+{#                {% else %}#}
+{#                    <a class="afmenu" href="{{ url_item.url }}">{{ url_item.title }}</a>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    {% endfor%}#}
 {% endblock %}
 
 {% block pg_content %}

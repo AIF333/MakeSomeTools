@@ -25,6 +25,19 @@ def login(request):
             # 登录失败  不做过多处理，只为测试权限系统
             return render(request, "rbac/login.html")
 
+
+def logout(request):
+    from django.conf import  settings
+    session_list=[settings.USER_PERMISSION_KEY,settings.USER_PERMISSION_KEY]
+    for sei in session_list:
+        print("request.session.get(sei,False)",request.session.get(sei,False))
+        if request.session.get(sei,False):
+            del request.session[sei]
+
+    return redirect('/rbac/login/')
+
+
+# 主页面
 def index(request):
     return render(request,"rbac/index.html")
 
@@ -32,14 +45,8 @@ def index(request):
 def users(request):
     if request.method=="GET":
         user_list=models.UserInfo.objects.all()
-
-        # print(request,type(request))
-        # request.permission_code_list= ['list', 'add', 'del', 'edit', 'list']
-        # print(request.permission_code_list) # 用户的权限code
-        # return HttpResponse("1111")
         return render(request,"rbac/users.html",
-                      {"user_list":user_list,"permission_code_list":request.permission_code_list,
-                       "menu_dict":request.menu_dict})
+                      {"user_list":user_list})
     else:
         pass
 
@@ -72,9 +79,8 @@ def host(request):
         print("---",page_obj)
         res_obj=queryResult[page_obj.start:page_obj.end]
 
-        return render(request, "rbac/host.html", {"res_obj":res_obj, "html":page_obj.page(),
-                "permission_code_list": request.permission_code_list,"menu_dict": request.menu_dict
-                                                   })
+        return render(request, "rbac/host.html",
+            {"res_obj":res_obj, "html":page_obj.page() })
     else:
         pass
 

@@ -25,12 +25,25 @@ def host(request):
     page_obj=Pageination(**pagedict)
     res_obj=queryResult[page_obj.start:page_obj.end]
 
+    html=page_obj.page() #普通分页
+    #套用bootstrap分页，
+    #####################################################################
+      html=page_obj.bootstrap_page() 需在html 中加一下样式：
+
+        <nav aria-label="Page navigation">
+             <ul class="pagination">
+                {{ html }}
+            </ul>
+        </nav>
+    #####################################################################
+
     return render(request,"resmanage.html",{"html":page_obj.page()})
-    ###################################################################
-    # 这里一定要注意的是 res_obj 需要取代原来的查询结果集，如原来写成的 #
-    #  result=models.Strudent.objects.all() 则需要替换成              #
-    #  result=queryResult[page_obj.start:page_obj.end]               #
-    ##################################################################
+
+    ########################################################################
+    #   这里一定要注意的是 res_obj 需要取代原来的查询结果集，如原来写成的    #
+    #   result=models.Strudent.objects.all() a则需要替换成                #
+    #   result=queryResult[page_obj.start:page_obj.end]                  #
+    #####################################################################
 html:
     <!--页码标签-->
     <style>
@@ -92,6 +105,7 @@ class Pageination(object):
     def end(self):
         return self.current_page*self.max_records
 
+    # 普通页面返回
     def page(self):
 
         # 如果分页数比设置的最大显示分页数小（默认11），那么就按照实际分页数显示； 否则 按照当前页前5个+当前页+后五个 总共显示11页
@@ -132,6 +146,62 @@ class Pageination(object):
 
         s.append('<a href ="%s?page=%s">下一页</a>' % (self.url, nex_current_page))
         s.append('<a href ="%s?page=%s">尾页</a>' % (self.url, self.page_num))
+
+
+        html = "".join(s)
+
+        return  mark_safe(html)
+
+
+    # 套用bootstrap页面返回
+    def bootstrap_page(self):
+        '''
+        套用的话，在html里还得加上：
+        <nav aria-label="Page navigation">
+        <ul class="pagination">
+                {{ html }}
+        </ul>
+        </nav>
+        '''
+
+        # 如果分页数比设置的最大显示分页数小（默认11），那么就按照实际分页数显示； 否则 按照当前页前5个+当前页+后五个 总共显示11页
+        if self.page_num <= self.max_pages:
+            page_start = 1
+            page_end = self.page_num+1
+        else:
+            page_start = self.current_page - self.half_max_pages
+            page_end = self.current_page + self.half_max_pages + 1
+
+            if page_start <= 1:
+                page_start = 1
+                page_end = self.max_pages + 1
+            if page_end >= self.page_num:
+                page_start = self.page_num - self.max_pages
+                page_end = self.page_num + 1
+
+        s = []
+
+        # 添加 首页 上下页 尾页 常用页面
+        s.append(' <li><a href ="%s?page=%s">首页</a></li>' % (self.url, 1))
+        if self.current_page <= 1:
+            pre_current_page = self.current_page
+        else:
+            pre_current_page = self.current_page - 1
+        s.append(' <li><a href ="%s?page=%s">上一页</a></li>' % (self.url, pre_current_page))
+
+        for i in range(page_start, page_end):
+            if i == self.current_page:
+                s.append(' <li class="active"><a href ="%s?page=%s">%s</a></li>' % (self.url, i, i))
+            else:
+                s.append(' <li><a href ="%s?page=%s">%s</a></li>' % (self.url, i, i))
+
+        if self.current_page == self.page_num:
+            nex_current_page = self.page_num
+        else:
+            nex_current_page = self.current_page + 1
+
+        s.append(' <li><a href ="%s?page=%s">下一页</a></li>' % (self.url, nex_current_page))
+        s.append(' <li><a href ="%s?page=%s">尾页</a></li>' % (self.url, self.page_num))
 
 
         html = "".join(s)

@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2245e934-bf23-4690-9405-6c8fe4cf2960" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login/utils/pagination.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/utils/pagination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rbac/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rbac/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rbac/readme" beforeDir="false" afterPath="$PROJECT_DIR$/rbac/readme" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rbac/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rbac/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +70,7 @@
           <entry key="login_resmanage" value="7" />
           <entry key="login_resmanage_dp" value="3" />
           <entry key="login_user" value="5" />
-          <entry key="py" value="163" />
+          <entry key="py" value="164" />
           <entry key="rbac_menu" value="4" />
           <entry key="rbac_permission" value="12" />
           <entry key="rbac_permissiongroup" value="5" />
@@ -95,7 +91,7 @@
           <entry key="Database Element" value="54" />
           <entry key="HTML" value="97" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="164" />
+          <entry key="Python" value="165" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -105,7 +101,7 @@
           <entry key="css" value="39" />
           <entry key="dummy" value="4" />
           <entry key="html" value="3854" />
-          <entry key="py" value="18590" />
+          <entry key="py" value="18912" />
           <entry key="readme" value="707" />
           <entry key="txt" value="44" />
         </counts>
@@ -115,7 +111,7 @@
           <entry key="CSS" value="39" />
           <entry key="HTML" value="3854" />
           <entry key="PLAIN_TEXT" value="48" />
-          <entry key="Python" value="19297" />
+          <entry key="Python" value="19619" />
           <entry key="Scratch" value="420" />
         </counts>
       </usages-collector>
@@ -126,8 +122,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/login/utils/pagination.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+            <state relative-caret-position="-2782">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rbac/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -252,18 +260,12 @@
             <path>
               <item name="MakeSomeTools" type="b2602c69:ProjectViewProjectNode" />
               <item name="MakeSomeTools" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
+              <item name="MakeSomeTools" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MakeSomeTools" type="b2602c69:ProjectViewProjectNode" />
               <item name="MakeSomeTools" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MakeSomeTools" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MakeSomeTools" type="462c0819:PsiDirectoryNode" />
-              <item name="MakeSomeTools" type="462c0819:PsiDirectoryNode" />
+              <item name="rbac" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -650,16 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rbac/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MakeSomeTools/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="777">
@@ -759,10 +751,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/rbac/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/login/utils/pagination.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        <state relative-caret-position="-2782">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>

@@ -43,3 +43,6 @@ class Menu(models.Model):
     menuname=models.CharField(verbose_name="一级菜单名称",max_length=32)
 
 
+class MyAppUser(object):
+    user=models.OneToOneField(to=UserInfo) # 这里就包含了用户名密码
+    # other_columns= 这里写其他的字段

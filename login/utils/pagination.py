@@ -25,8 +25,12 @@ def host(request):
     page_obj=Pageination(**pagedict)
     res_obj=queryResult[page_obj.start:page_obj.end]
 
-    return render(request,"resmanage.html",{"res_obj":res_obj,"html":page_obj.page()})
-
+    return render(request,"resmanage.html",{"html":page_obj.page()})
+    ###################################################################
+    # 这里一定要注意的是 res_obj 需要取代原来的查询结果集，如原来写成的 #
+    #  result=models.Strudent.objects.all() 则需要替换成              #
+    #  result=queryResult[page_obj.start:page_obj.end]               #
+    ##################################################################
 html:
     <!--页码标签-->
     <style>
@@ -60,6 +64,7 @@ class Pageination(object):
         :param max_records: 每页的最大记录数，默认10
         '''
 
+        # 输入的页码不对则返回第一页
         self.url=url
         try:
             self.current_page=int(current_page)
@@ -77,6 +82,8 @@ class Pageination(object):
         if self.current_page> self.page_num or self.current_page<1: # 如果输入的页码不在正常范围，则页码为1
             self.current_page=1
 
+
+    # start 和 end 作为数据切片用，返回起始行和结束行
     @property
     def start(self):
         return (self.current_page-1)*self.max_records
@@ -87,9 +94,10 @@ class Pageination(object):
 
     def page(self):
 
+        # 如果分页数比设置的最大显示分页数小（默认11），那么就按照实际分页数显示； 否则 按照当前页前5个+当前页+后五个 总共显示11页
         if self.page_num <= self.max_pages:
             page_start = 1
-            page_end = self.page_num
+            page_end = self.page_num+1
         else:
             page_start = self.current_page - self.half_max_pages
             page_end = self.current_page + self.half_max_pages + 1
@@ -103,6 +111,7 @@ class Pageination(object):
 
         s = []
 
+        # 添加 首页 上下页 尾页 常用页面
         s.append('<a href ="%s?page=%s">首页</a>' % (self.url, 1))
         if self.current_page <= 1:
             pre_current_page = self.current_page

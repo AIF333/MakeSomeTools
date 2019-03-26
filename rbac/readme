@@ -50,7 +50,14 @@ rbac 基于角色的权限系统使用说明,通过rbac模型和中间件，sess
 
 5.视图函数改造示例：默认不需要改造
 
-6.模板html示例：
+6.注意点  models里定义了用户类  UserInfo ,项目里肯定也会有自己的用户表，建议项目的用户表
+  与这个UserInfo做一对一关联，方便维护，示例：
+    class MyAppUser(object):
+        user=models.OneToOneField(to=UserInfo) # 这里就包含了用户名密码
+        # other_columns= 这里写其他的字段
+
+
+7.模板html示例：
     <!--继承模板-->
     {% extends 'rbac/layout.html' %}
 

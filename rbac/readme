@@ -55,7 +55,7 @@ rbac 基于角色的权限系统使用说明,通过rbac模型和中间件，sess
     class MyAppUser(object):
         user=models.OneToOneField(to=UserInfo) # 这里就包含了用户名密码
         # other_columns= 这里写其他的字段
-
+  或者用继承：https://www.cnblogs.com/linxiyue/p/3900264.html
 
 7.模板html示例：
     <!--继承模板-->
@@ -94,6 +94,7 @@ rbac 基于角色的权限系统使用说明,通过rbac模型和中间件，sess
     {% endblock %}
 
 
-
+待优化：应该在用户表中增加一个字段记录 session_key ，方便后期改了权限强制生效用
+通过 key在session表中找到该用户的记录，然后删除该记录
 
 '''

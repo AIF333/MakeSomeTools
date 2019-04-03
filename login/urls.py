@@ -8,8 +8,10 @@ urlpatterns = [
     path('', log_views.index),  # 首页
     path('index/', log_views.index),  # 首页
     path('host/', log_views.host),  # 主机管理
-    path('test/', log_views.test),  # 测试
     path('addHost/', log_views.addHost),  # 主机添加
     path('editHost/<int:resid>', log_views.editHost),  # 主机编辑
     path('delHost/<int:resid>', log_views.delHost),  # 主机删除
+    path('test/', log_views.test),  # 测试
+    path('test1/', log_views.test_db2redis),  # 测试数据库数据导入到redis中
+    path('test2/', log_views.test_redis2db),  # 测试redis数据导入到db中
 ]

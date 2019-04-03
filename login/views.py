@@ -88,6 +88,7 @@ def host(request):
         pagedict={}
         # request.path_info 可获取当前url的路径，如/host/?page=1的path_url=/host/
         pagedict["url"]=request.path_info
+        pagedict["request"]=request
         pagedict["record_sum"]=queryResult.count()
         pagedict["current_page"]=request.GET.get("page")
         pagedict["max_pages"]=11     # 默认11，可不传入
@@ -168,3 +169,60 @@ def test(request):
     print(json.dumps(dic,cls=JsonCustomEncoder))
 
     return render(request, "login/test.html")
+
+# 测试数据库数据写入redis
+from login import models
+import redis
+r1=redis.StrictRedis(host='localhost',port=6379,db=0,password='yeteng123')
+
+def test_db2redis(request):
+    '''
+    测试数据库导入到redis中
+    '''
+    user_list = models.User.objects.all()
+    # print(type(user_list), user_list)  #  <QuerySet [<User: yeteng>, <User: szr>, <User: aif>]>
+    # i=0
+    # while i<3000 :
+    #     # for user in user_list:
+    #     #     # print(type(user),user.__dict__)
+    #     #     dict=user.__dict__
+    #     #     # print("-----",dict,type(dict))
+    #     #     r1.hdel("users",dict["username"]+"%s"%i)
+    #     #     r1.hset("users",dict["username"]+"%s"%i,str(dict["nid"])+":"+"aaa%s"%i)
+    #     #     print(i)
+    #     r1.hset("users","key-%s"%i,"val-%s"%i)
+    #     i+=1
+    #     print(i)
+    # curosr基于游标，下次取值时在此游标上取 count每次取的个数，在数据量大时可用，比getall好
+    cur0,data0=r1.hscan("users",cursor=0,count=5) # 数据量太少了(应该大于2000才行)，分页就没有效果
+    cur1,data1=r1.hscan("users",cursor=1,count=5)
+    print("===cur0,data0",cur0,data0) # 14336
+    print("===cur1,data1",cur1,data1)
+    print("===r1.users:",r1.hgetall("users"))
+    return HttpResponse("......")
+
+# 测试
+def test_redis2db(requst):
+    '''
+    测试redis导入到数据库，这里用到了批量插入 和 hscan的游标
+    '''
+    # 测试前先清空表数据
+    models.TestRedis.objects.all().delete()
+    # 用hscan来实现循环取数据
+    cur=0
+    while True:
+        cur, data = r1.hscan("users", cursor=cur, count=100)
+        # print("cur:data---:",cur,data,type(cur),type(data))
+        # 批量插入到列表中，然后导入到数据库表里
+        rows=[]
+        for k,v in data.items():
+            tempObject=models.TestRedis(key=k.decode("utf-8"),value=v.decode("utf-8"))
+            # print(tempObject)
+            rows.append(tempObject)
+        models.TestRedis.objects.bulk_create(rows)
+
+        if cur == 0: # 当扫描完毕，游标变成0，游标在扫描过程中不一定是递增的，而是随机的
+            break
+
+    # models.User.objects.create(username=,password=)
+    return HttpResponse("...")

@@ -29,3 +29,8 @@ class Department(models.Model):
 
     def __str__(self):
         return self.deptname
+
+# 测试redis的表，跟其他程序无关
+class TestRedis(models.Model):
+    key=models.CharField(max_length=32)
+    value=models.CharField(max_length=32)

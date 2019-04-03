@@ -70,6 +70,7 @@ def host(request):
         pagedict={}
         # request.path_info 可获取当前url的路径，如/host/?page=1的path_url=/host/
         pagedict["url"]=request.path_info
+        pagedict["request"]=request
         pagedict["record_sum"]=queryResult.count()
         pagedict["current_page"]=request.GET.get("page")
         pagedict["max_pages"]=11     # 默认11，可不传入
